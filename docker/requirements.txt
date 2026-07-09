@@ -1,0 +1,7 @@
+apache-airflow-providers-amazon==8.27.0
+apache-airflow-providers-postgres==5.10.0
+boto3==1.34.162
+pandas==2.2.2
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1
+pyarrow==17.0.0
