@@ -2,7 +2,7 @@ version: '3.8'
 
 x-airflow-common: &airflow-common
   build:
-    context: .
+    context: ..
     dockerfile: docker/Dockerfile
   environment: &airflow-env
     AIRFLOW__CORE__EXECUTOR: LocalExecutor
@@ -49,22 +49,27 @@ services:
       - etl-network
 
   localstack:
-    image: localstack/localstack:latest
+    image: localstack/localstack:2.3.2
     ports:
       - "4566:4566"           # Main endpoint
       - "4510-4559:4510-4559" # External ports
     environment:
       - SERVICES=s3,lambda,rds,iam
-      - DEBUG=1
+      - DEBUG=0
       - DATA_DIR=/tmp/localstack/data
       - DOCKER_HOST=unix:///var/run/docker.sock
+      - PERSISTENCE=1
+      - SKIP_SIGNATURE_VALIDATION=1
+    env_file:
+    - .env  # <-- Or load from .env file
     volumes:
       - ../.localstack:/tmp/localstack
       - /var/run/docker.sock:/var/run/docker.sock
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4566/_localstack/health"]
-      interval: 10s
-      retries: 5
+      interval: 30s
+      timeout: 10s
+      retries: 3
     networks:
       - etl-network
 
