@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Airflow
+logs/
+airflow.db
+airflow.cfg
+webserver_config.py
+*.pid
+
+# LocalStack
+.localstack/
+.aws/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Data (sample data)
+data/
+*.csv
+*.parquet
